@@ -9,7 +9,7 @@ node {
       sh 'docker -v'
     }
     stage('Build Docker'){
-      sh 'sudo docker build -t test:1 .'
+      sh 'docker build -t test:1 .'
     }
     stage('Docker run'){
       sh 'sudo docker run -p 3000:80 -d test:1'

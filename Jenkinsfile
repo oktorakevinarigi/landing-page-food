@@ -10,10 +10,10 @@ node {
       sh 'printenv'
     }
     stage('Build Docker'){
-      sh 'docker build -t test:1 .'
+      sh 'sudo docker build -t test:1 .'
     }
     stage('Docker run'){
-      sh 'docker run -p 3000:80 -d test:1'
+      sh 'sudo docker run -p 3000:80 -d test:1'
     }
   }
   catch (err) {

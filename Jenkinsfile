@@ -8,7 +8,7 @@ pipeline {
                 sh 'ls'
             }
         }
-        stage('send notif start'){
+        stage('check docker compose'){
             steps {
                 sh 'docker compose version'
             }

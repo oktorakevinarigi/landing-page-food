@@ -13,7 +13,7 @@ pipeline {
                 sh 'ls'
             }
         }
-        stage('Build Docker'){
+        stage('send notif start'){
             steps {
                 slackSend channel: 'jenkins-notification', message: 'mulai'
             }
@@ -23,7 +23,7 @@ pipeline {
                 sh 'docker compose up -d'
             }
         }
-        stage('Build Docker'){
+        stage('send notif end'){
             steps {
                 slackSend channel: 'jenkins-notification', message: 'selesai'
             }

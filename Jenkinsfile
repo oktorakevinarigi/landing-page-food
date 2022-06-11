@@ -15,12 +15,7 @@ pipeline {
         }
         stage('Build Docker'){
             steps {
-                sh 'docker build -t test:1 .'
-            }
-        }
-        stage('Docker run'){
-            steps {
-                sh 'sudo docker run -p 3000:80 -d test:1'
+                sh 'docker compose up -d'
             }
         }
     }

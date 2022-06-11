@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  web:
+    image: web
+    container_name: web
+    build: .
+    restart: always
+    ports:
+      - "80:3000"

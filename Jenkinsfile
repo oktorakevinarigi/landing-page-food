@@ -14,7 +14,9 @@ pipeline {
             }
         }
         stage('Build Docker'){
-            slackSend channel: 'jenkins-notification', message: 'mulai'
+            steps {
+                slackSend channel: 'jenkins-notification', message: 'mulai'
+            }
         }
         stage('Build Docker'){
             steps {
@@ -22,7 +24,9 @@ pipeline {
             }
         }
         stage('Build Docker'){
-            slackSend channel: 'jenkins-notification', message: 'selesai'
+            steps {
+                slackSend channel: 'jenkins-notification', message: 'selesai'
+            }
         }
     }
 }

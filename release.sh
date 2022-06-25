@@ -17,11 +17,9 @@ BLINK='\033[5m'
 echo ""
 echo ""
 echo ""
-# Get current branch name
-CURRENT_BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-# Check current status
-# if [ true ]
-if [ -z "`git status --porcelain`" ]
+
+CURRENT_BRANCH=$(git branch --show-current) # Get current branch name
+if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (true)
     then
         # Proceed to next step
         echo "============================="

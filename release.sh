@@ -27,8 +27,7 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
         echo "============================="
         echo "0: Dev"
         echo "1: Dev1"
-        echo "2: Sanity"
-        echo "3: RC (Release Candidate)"
+
         echo ""
         echo "Others or Empty to cancel!"
         echo "-----------------------------"
@@ -46,7 +45,7 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
 
         echo ""
 
-        if [[ $TARGET_BRANCH != "" ]]
+        if [[ $TARGET_BRANCH != "" ]] # Check if the branch is not empty
             then
                 if [[ $TARGET_BRANCH == "master" ]]
                 then
@@ -72,24 +71,17 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
                     IS_SUCCESS=0
                     if [[ $TARGET_BRANCH == "master" ]] || [[ $TARGET_BRANCH == "release/production" ]]
                     then
-                        # Check local branch
-                        if [ ! `git branch --list $TARGET_BRANCH` ]
+                        if [ `git branch --list $TARGET_BRANCH` ] # in local there is a destination branch
                         then
-                            # Create if not exist
-                            git checkout -b $TARGET_BRANCH `origin/$TARGET_BRANCH`
+                            git checkout $TARGET_BRANCH # move to destination branch
                         else
-                            # Change
-                            git checkout $TARGET_BRANCH
+                            git checkout -b $TARGET_BRANCH `origin/$TARGET_BRANCH` # pull and checkout to destination branch
                         fi
 
-                        # Update it
-                        git fetch origin $TARGET_BRANCH
+                        git fetch origin $TARGET_BRANCH # Update that destination branch
+                        git merge --ff-only $CURRENT_BRANCH # Merge the codes
 
-                        # Merge the codes
-                        git merge --ff-only $CURRENT_BRANCH
-
-                        # Check conflicts
-                        CONFLICTS=$(git ls-files -u | wc -l)
+                        CONFLICTS=$(git ls-files -u | wc -l) # Check conflicts
                         if [ "$CONFLICTS" -gt 0 ]
                         then
                             echo -e "${COLOR_RED}Warning!${COLOR_DEFAULT}"
@@ -107,24 +99,13 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
                             fi
                         fi
                     else
-                        # Check local branch, if exist then delete it
-                        # if [ `git branch --list $TARGET_BRANCH` ]
-                        # then
-                            git branch -D $TARGET_BRANCH
-                        # fi
+                        git branch -D $TARGET_BRANCH # Delete branch destination in local
+                        git push origin --delete $TARGET_BRANCH # Delete branch destination in cloud
+                        
+                        git checkout -b $TARGET_BRANCH # Create branch from current branch and checkout
+                        git push origin $TARGET_BRANCH # Push target branch to cloud
 
-                        # Check remote branch, if exist then delete it
-                        # if [ `git branch --list origin $TARGET_BRANCH` ]
-                        # then
-                            git push origin --delete $TARGET_BRANCH
-                        # fi
-
-                        # Create fresh branch from current branch
-                        git checkout -b $TARGET_BRANCH
-                        git push origin $TARGET_BRANCH
-
-                        # Back to current branch
-                        git checkout $CURRENT_BRANCH
+                        git checkout $CURRENT_BRANCH # Back to current branch
 
                         IS_SUCCESS=1
                     fi

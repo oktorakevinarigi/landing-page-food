@@ -148,7 +148,8 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
         else
             echo -e "${COLOR_RED}Warning!${COLOR_DEFAULT}"
             echo "==========================================================================="
-            printf ">> Release with ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT} branch is Canceled!"
+            echo -e ">> Option not found in list"
+            printf ">> Release is Canceled!"
         fi
 else
     echo -e "${BLINK}${COLOR_RED}Warning!${COLOR_DEFAULT}"

@@ -62,7 +62,7 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
                 then
                     echo -e "${COLOR_RED}Warning!${COLOR_DEFAULT}"
                     echo "==========================================================================="
-                    echo -e ">> Release must use ${COLOR_YELLOW}${EXPECTED_BRANCH}${COLOR_DEFAULT} branch, your current branch is ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT}!"
+                    printf ">> Release must use ${COLOR_YELLOW}${EXPECTED_BRANCH}${COLOR_DEFAULT} branch, your current branch is ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT}!"
                 else
                     echo -e ">> Release on ${COLOR_YELLOW}$ENV_LABEL${COLOR_DEFAULT}"
                     echo "Processing..."
@@ -118,25 +118,25 @@ if [ -z "`git status --porcelain`" ] # Check if there are any file changes, if (
                         echo -e "${COLOR_GREEN}Success!${COLOR_DEFAULT}"
                         echo "==========================================================================="
                         echo -e ">> Release on ${COLOR_YELLOW}$ENV_LABEL${COLOR_DEFAULT} with ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT} branch is Success"
-                        echo ">> Your release will be available on server soon!"
+                        printf ">> Your release will be available on server soon!"
                     else
                         echo -e "${COLOR_RED}Warning!${COLOR_DEFAULT}"
                         echo "==========================================================================="
-                        echo -e ">> Release with ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT} branch is Failed!" 
+                        printf ">> Release with ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT} branch is Failed!" 
                     fi
                 fi
                 
         else
             echo -e "${COLOR_RED}Warning!${COLOR_DEFAULT}"
             echo "==========================================================================="
-            echo ">> Option not found in list"
-            echo ">> Release is Canceled!"
+            echo -e ">> Option not found in list"
+            printf ">> Release is Canceled!"
         fi
 else
     echo -e "${BLINK}${COLOR_RED}Warning!${COLOR_DEFAULT}"
     echo "==========================================================================="
     echo -e ">> Please push your latest update on ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT} branch to remote repository"
-    echo ">> Release is Canceled!"
+    printf ">> Release is Canceled!"
 fi
 
 read END

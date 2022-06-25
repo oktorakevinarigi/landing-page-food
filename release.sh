@@ -137,7 +137,6 @@ else
     echo "==========================================================================="
     echo -e ">> Please push your latest update on ${COLOR_YELLOW}$CURRENT_BRANCH${COLOR_DEFAULT} branch to remote repository"
     printf ">> Release is Canceled!"
-    read END
 fi
 
 read END
